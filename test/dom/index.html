@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Test</title>
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../src/angular-google-plus.js"></script>
+    <script>
+    var app = angular.module('app', ['googleplus']);
+
+    app.config(['GooglePlusProvider', function(GooglePlusProvider) {
+         GooglePlusProvider.init({
+         });
+    }]);
+
+    app.controller('AuthCtrl', ['$scope', 'GooglePlus', function ($scope, GooglePlus) {
+        $scope.login = function () {
+            GooglePlus.login().then(function (data) {
+                console.log(data);
+            }, function (err) {
+                console.log(err);
+            });
+        };
+    }])
+    </script>
+</head>
+<body ng-app="app" ng-controller="AuthCtrl">
+    <a href="javascript:void(0);" ng-click="login()">Login with Google Plus</a>
+</body>
+</html>
