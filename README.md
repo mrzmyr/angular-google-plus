@@ -6,6 +6,19 @@ Angular-Google-Plus
 
 A angular module which handles the login with the Google+ API
 
+#### Demo
+
+Try [this demo](http://plnkr.co/edit/jvHVtNedJoPcqRKg8OLz?p=preview). _Remind that there is no API Key and Client ID inserted_
+
+
+#### Install
+
+Install the angular module with bower.
+
+```
+$ bower install angular-google-plus
+````
+
 #### Credits
 
 - Insperation from [jakemmarsh's gist](https://gist.github.com/jakemmarsh/5809963)
