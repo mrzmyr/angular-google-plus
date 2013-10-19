@@ -5,7 +5,10 @@
   "authors": [
     "Moritz Meyer <m0ritz.m3yer@gmail.com>"
   ],
-  "main": [],
+  "main": [
+    "dist/angular-google-plus.js",
+    "dist/angular-google-plus.min.js"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",

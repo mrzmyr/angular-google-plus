@@ -10,7 +10,7 @@
     /**
    * googleplus module
    */
-    b.module("googleplus", []).provider("GooglePlus", [ function() {
+    a.module("googleplus", []).provider("GooglePlus", [ function() {
         /**
        * clientId
        * @type {Number}
@@ -49,71 +49,62 @@
             return c.scopes;
         };
         /**
-       * Init Facebook API required stuff
-       * This will prepare the app earlier (on optionsuration)
+       * Init Google Plus API
        */
-        this.init = function(a) {
-            b.extend(c, a);
+        this.init = function(b) {
+            a.extend(c, b);
         };
         /**
-       * This defines the Facebook Service on run.
+       * This defines the Google Plus Service on run.
        */
-        this.$get = [ "$q", "$rootScope", function(b, c) {
+        this.$get = [ "$q", "$rootScope", "$timeout", function(a, d, e) {
             /**
          * Create a deferred instance to implement asynchronous calls
          * @type {Object}
          */
-            var d = b.defer();
+            var f = a.defer();
             /**
          * NgGooglePlus Class
          * @type {Class}
          */
-            var e = function() {};
-            e.prototype.login = function() {
-                gapi.auth.authorize({
-                    client_id: clientId,
-                    scope: scopes,
+            var g = function() {};
+            g.prototype.login = function() {
+                b.auth.authorize({
+                    client_id: c.clientId,
+                    scope: c.scopes,
                     immediate: false
                 }, this.handleAuthResult);
-                return d.promise;
+                return f.promise;
             };
-            e.prototype.checkAuth = function() {
-                gapi.auth.authorize({
-                    client_id: clientId,
-                    scope: scopes,
+            g.prototype.checkAuth = function() {
+                b.auth.authorize({
+                    client_id: c.clientId,
+                    scope: c.scopes,
                     immediate: true
                 }, this.handleAuthResult);
             };
-            e.prototype.handleClientLoad = function() {
-                gapi.client.setApiKey(apiKey);
-                gapi.auth.init(function() {});
-                a.setTimeout(this.checkAuth, 1);
+            g.prototype.handleClientLoad = function() {
+                b.client.setApiKey(c.apiKey);
+                b.auth.init(function() {});
+                e(this.checkAuth, 1);
             };
-            e.prototype.handleAuthClick = function(a) {
-                gapi.auth.authorize({
-                    client_id: clientId,
-                    scope: scopes,
-                    immediate: false
-                }, this.handleAuthResult);
-                return false;
-            };
-            e.prototype.handleAuthResult = function(a) {
+            g.prototype.handleAuthResult = function(a) {
                 if (a && !a.error) {
-                    var b = {};
-                    gapi.client.load("oauth2", "v2", function() {
-                        var a = gapi.client.oauth2.userinfo.get();
+                    var c = {};
+                    b.client.load("oauth2", "v2", function() {
+                        var a = b.client.oauth2.userinfo.get();
                         a.execute(function(a) {
-                            b.email = a.email;
-                            b.uid = a.id;
-                            d.resolve(b);
-                            c.$apply();
+                            c.email = a.email;
+                            c.uid = a.id;
+                            f.resolve(c);
+                            d.$apply();
                         });
                     });
                 } else {
-                    d.reject("error");
+                    f.reject("error");
                 }
             };
-            return new e();
+            return new g();
         } ];
     } ]).run([ function() {
         var a = document.createElement("script");
@@ -123,4 +114,4 @@
         var b = document.getElementsByTagName("script")[0];
         b.parentNode.insertBefore(a, b);
     } ]);
-})(window, angular);
+})(angular, gapi);
