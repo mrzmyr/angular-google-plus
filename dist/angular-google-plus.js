@@ -1,117 +1,121 @@
-/*! angular-google-plus - v0.1.0 2013-10-19 */
-(function(a, b) {
-    "use strict";
+/*! angular-google-plus - v0.1.0 2013-10-31 */
+/**
+ * Options object available for module
+ * options/services definition.
+ * @type {Object}
+ */
+var options = {};
+
+/**
+ * googleplus module
+ */
+angular.module("googleplus", []).provider("GooglePlus", [ function() {
     /**
-   * Options object available for module
-   * options/services definition.
-   * @type {Object}
-   */
-    var c = {};
+     * clientId
+     * @type {Number}
+     */
+    options.clientId = null;
+    this.setClientId = function(a) {
+        options.clientId = a;
+        return this;
+    };
+    this.getClientId = function() {
+        return options.clientId;
+    };
     /**
-   * googleplus module
-   */
-    a.module("googleplus", []).provider("GooglePlus", [ function() {
+     * apiKey
+     * @type {String}
+     */
+    options.apiKey = null;
+    this.setApiKey = function(a) {
+        options.apiKey = a;
+        return this;
+    };
+    this.getApiKey = function() {
+        return options.apiKey;
+    };
+    /**
+     * Scopes
+     * @default 'https://www.googleapis.com/auth/plus.login'
+     * @type {Boolean}
+     */
+    options.scopes = "https://www.googleapis.com/auth/plus.login";
+    this.setScopes = function(a) {
+        options.scopes = a;
+        return this;
+    };
+    this.getScopes = function() {
+        return options.scopes;
+    };
+    /**
+     * Init Google Plus API
+     */
+    this.init = function(a) {
+        angular.extend(options, a);
+    };
+    /**
+     * This defines the Google Plus Service on run.
+     */
+    this.$get = [ "$q", "$rootScope", "$timeout", function(a, b, c) {
         /**
-       * clientId
-       * @type {Number}
+       * Create a deferred instance to implement asynchronous calls
+       * @type {Object}
        */
-        c.clientId = null;
-        this.setClientId = function(a) {
-            c.clientId = a;
-            return this;
-        };
-        this.getClientId = function() {
-            return c.clientId;
-        };
+        var d = a.defer();
         /**
-       * apiKey
-       * @type {String}
+       * NgGooglePlus Class
+       * @type {Class}
        */
-        c.apiKey = null;
-        this.setApiKey = function(a) {
-            c.apiKey = a;
-            return this;
+        var e = function() {};
+        e.prototype.login = function() {
+            gapi.auth.authorize({
+                client_id: options.clientId,
+                scope: options.scopes,
+                immediate: false
+            }, this.handleAuthResult);
+            return d.promise;
         };
-        this.getApiKey = function() {
-            return c.apiKey;
+        e.prototype.checkAuth = function() {
+            gapi.auth.authorize({
+                client_id: options.clientId,
+                scope: options.scopes,
+                immediate: true
+            }, this.handleAuthResult);
         };
-        /**
-       * Scopes
-       * @default 'https://www.googleapis.com/auth/plus.login'
-       * @type {Boolean}
-       */
-        c.scopes = "https://www.googleapis.com/auth/plus.login";
-        this.setScopes = function(a) {
-            c.scopes = a;
-            return this;
+        e.prototype.handleClientLoad = function() {
+            gapi.client.setApiKey(options.apiKey);
+            gapi.auth.init(function() {});
+            c(this.checkAuth, 1);
         };
-        this.getScopes = function() {
-            return c.scopes;
-        };
-        /**
-       * Init Google Plus API
-       */
-        this.init = function(b) {
-            a.extend(c, b);
-        };
-        /**
-       * This defines the Google Plus Service on run.
-       */
-        this.$get = [ "$q", "$rootScope", "$timeout", function(a, d, e) {
-            /**
-         * Create a deferred instance to implement asynchronous calls
-         * @type {Object}
-         */
-            var f = a.defer();
-            /**
-         * NgGooglePlus Class
-         * @type {Class}
-         */
-            var g = function() {};
-            g.prototype.login = function() {
-                b.auth.authorize({
-                    client_id: c.clientId,
-                    scope: c.scopes,
-                    immediate: false
-                }, this.handleAuthResult);
-                return f.promise;
-            };
-            g.prototype.checkAuth = function() {
-                b.auth.authorize({
-                    client_id: c.clientId,
-                    scope: c.scopes,
-                    immediate: true
-                }, this.handleAuthResult);
-            };
-            g.prototype.handleClientLoad = function() {
-                b.client.setApiKey(c.apiKey);
-                b.auth.init(function() {});
-                e(this.checkAuth, 1);
-            };
-            g.prototype.handleAuthResult = function(a) {
-                if (a && !a.error) {
-                    var c = {};
-                    b.client.load("oauth2", "v2", function() {
-                        var a = b.client.oauth2.userinfo.get();
-                        a.execute(function(a) {
-                            c.email = a.email;
-                            c.uid = a.id;
-                            f.resolve(c);
-                            d.$apply();
-                        });
+        e.prototype.handleAuthResult = function(a) {
+            if (a && !a.error) {
+                var c = {};
+                gapi.client.load("oauth2", "v2", function() {
+                    var a = gapi.client.oauth2.userinfo.get();
+                    a.execute(function(a) {
+                        c.email = a.email;
+                        c.uid = a.id;
+                        d.resolve(c);
+                        b.$apply();
                     });
-                } else {
-                    f.reject("error");
-                }
-            };
-            return new g();
-        } ];
-    } ]).run([ function() {
-        var a = document.createElement("script");
-        a.type = "text/javascript";
-        a.async = true;
-        a.src = "https://apis.google.com/js/client.js";
-        var b = document.getElementsByTagName("script")[0];
-        b.parentNode.insertBefore(a, b);
-    } ]);
-})(angular, gapi);
+                });
+            } else {
+                d.reject("error");
+            }
+        };
+        e.prototype.getToken = function() {
+            return gapi.auth.getToken();
+        };
+        e.prototype.setToken = function(a) {
+            return gapi.auth.setToken(a);
+        };
+        return new e();
+    } ];
+} ]).run([ function() {
+    var a = document.createElement("script");
+    a.type = "text/javascript";
+    a.async = true;
+    a.src = "https://apis.google.com/js/client.js";
+    var b = document.getElementsByTagName("script")[0];
+    b.parentNode.insertBefore(a, b);
+} ]);
