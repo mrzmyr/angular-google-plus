@@ -110,16 +110,8 @@ angular.module('googleplus', []).
 
       NgGooglePlus.prototype.handleAuthResult = function(authResult) {
           if (authResult && !authResult.error) {
-              var data = {};
-              gapi.client.load('oauth2', 'v2', function () {
-                  var request = gapi.client.oauth2.userinfo.get();
-                  request.execute(function (resp) {
-                      data.email = resp.email;
-                      data.uid = resp.id;
-                      deferred.resolve(data);
-                      $rootScope.$apply();
-                  });
-              });
+              deferred.resolve(authResult);
+              $rootScope.$apply();
           } else {
               deferred.reject('error');
           }
