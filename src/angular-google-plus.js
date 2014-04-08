@@ -117,6 +117,16 @@ angular.module('googleplus', []).
           }
       };
 
+      NgGooglePlus.prototype.getUserInfo = function() {
+          var deferred = $q.defer();
+          var request = gapi.client.oauth2.userinfo.get();
+          request.execute(function (resp) {
+              deferred.resolve(resp);
+              $rootScope.$apply();
+          });
+          return deferred;
+      };
+
       NgGooglePlus.prototype.getToken = function() {
         return gapi.auth.getToken();
       };
