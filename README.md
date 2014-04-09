@@ -3,6 +3,7 @@ Angular-Google-Plus
 
 [![Build Status](https://travis-ci.org/mrzmyr/angular-google-plus.png)](https://travis-ci.org/mrzmyr/angular-google-plus) 
 [![Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus.png)](https://david-dm.org/mrzmyr/angular-google-plus) 
+[![Dev Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus/dev-status.svg)](https://david-dm.org/mrzmyr/angular-google-plus#info=devDependencies&view=table) 
 
 A angular module which handles the login with the Google+ API
 
