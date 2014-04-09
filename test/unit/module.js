@@ -1,4 +1,3 @@
-// JavaScript
 describe('googlePlus Module specs', function () {
   var googlePlus, GooglePlusProvider;
 
