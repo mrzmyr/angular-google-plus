@@ -34,8 +34,8 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
 
 app.controller('AuthCtrl', ['$scope', 'GooglePlus', function ($scope, GooglePlus) {
     $scope.login = function () {
-        GooglePlus.login().then(function (resp, authResult) {
-            console.log(resp, authResult);
+        GooglePlus.login().then(function (resp) {
+            console.log(resp);
         }, function (err) {
             console.log(err);
         });
