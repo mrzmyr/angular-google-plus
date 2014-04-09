@@ -9,7 +9,7 @@ A angular module which handles the login with the Google+ API
 
 #### Demo
 
-Try [this demo](http://plnkr.co/edit/jvHVtNedJoPcqRKg8OLz?p=preview). _Remind that there is no API Key and Client ID inserted_
+Try [this demo](http://plnkr.co/edit/jvHVtNedJoPcqRKg8OLz?p=preview). _Remind that there is no `API Key` and `Client ID` inserted_
 
 
 #### Install
@@ -18,7 +18,30 @@ Install the angular module with bower.
 
 ```
 $ bower install angular-google-plus
-````
+```
+
+#### Usage
+
+```
+var app = angular.module('app', ['googleplus']);
+
+app.config(['GooglePlusProvider', function(GooglePlusProvider) {
+     GooglePlusProvider.init({
+        clientId: 'YOUR_CLIENT_ID',
+        apiKey: 'YOUR_API_KEY'
+     });
+}]);
+
+app.controller('AuthCtrl', ['$scope', 'GooglePlus', function ($scope, GooglePlus) {
+    $scope.login = function () {
+        GooglePlus.login().then(function (resp, authResult) {
+            console.log(resp, authResult);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+}])
+```
 
 #### Credits
 
