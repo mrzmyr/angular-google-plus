@@ -90,9 +90,8 @@ angular.module("googleplus", []).provider("GooglePlus", [ function() {
         e.prototype.handleAuthResult = function(a) {
             if (a && !a.error) {
                 gapi.client.load("oauth2", "v2", function() {
-                    var c = gapi.client.oauth2.userinfo.get();
-                    c.execute(function(c) {
-                        d.resolve(c, a);
+                    gapi.client.oauth2.userinfo.get().execute(function(a) {
+                        d.resolve(a);
                         b.$apply();
                     });
                 });

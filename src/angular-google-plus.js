@@ -86,39 +86,38 @@ angular.module('googleplus', []).
       var NgGooglePlus = function () {};
 
       NgGooglePlus.prototype.login =  function () {
-          gapi.auth.authorize({
-            client_id: options.clientId,
-            scope: options.scopes,
-            immediate: false
-          }, this.handleAuthResult);
-          return deferred.promise;
+        gapi.auth.authorize({
+          client_id: options.clientId,
+          scope: options.scopes,
+          immediate: false
+        }, this.handleAuthResult);
+        return deferred.promise;
       };
 
       NgGooglePlus.prototype.checkAuth = function() {
-          gapi.auth.authorize({
-            client_id: options.clientId,
-            scope: options.scopes,
-            immediate: true
-          }, this.handleAuthResult);
+        gapi.auth.authorize({
+          client_id: options.clientId,
+          scope: options.scopes,
+          immediate: true
+        }, this.handleAuthResult);
       };
 
       NgGooglePlus.prototype.handleClientLoad = function () {
-          gapi.client.setApiKey(options.apiKey);
-          gapi.auth.init(function () { });
-          $timeout(this.checkAuth, 1);
+        gapi.client.setApiKey(options.apiKey);
+        gapi.auth.init(function () { });
+        $timeout(this.checkAuth, 1);
       };
 
       NgGooglePlus.prototype.handleAuthResult = function(authResult) {
           if (authResult && !authResult.error) {
-              gapi.client.load('oauth2', 'v2', function () {
-                  var request = gapi.client.oauth2.userinfo.get();
-                  request.execute(function (resp) {
-                      deferred.resolve(resp, authResult);
-                      $rootScope.$apply();
-                  });
+            gapi.client.load('oauth2', 'v2', function () {
+              gapi.client.oauth2.userinfo.get().execute(function (resp) {
+                deferred.resolve(resp);
+                $rootScope.$apply();
               });
+            });
           } else {
-              deferred.reject('error');
+            deferred.reject('error');
           }
       };
 
