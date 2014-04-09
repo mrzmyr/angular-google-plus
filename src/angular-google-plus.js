@@ -117,14 +117,15 @@ angular.module('googleplus', []).
           }
       };
 
-      NgGooglePlus.prototype.getUserInfo = function() {
+      NgGooglePlus.prototype.getUser = function() {
           var deferred = $q.defer();
-          var request = gapi.client.oauth2.userinfo.get();
-          request.execute(function (resp) {
-              deferred.resolve(resp);
-              $rootScope.$apply();
+          gapi.client.load('oauth2', 'v2', function () {
+              gapi.client.oauth2.userinfo.get().execute(function (resp) {
+                  deferred.resolve(resp);
+                  $rootScope.$apply();
+              });
           });
-          return deferred;
+          return deferred.promise;
       };
 
       NgGooglePlus.prototype.getToken = function() {
