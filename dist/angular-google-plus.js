@@ -1,4 +1,4 @@
-/*! angular-google-plus - v0.1.0 2013-10-31 */
+/*! angular-google-plus - v0.1.1 2014-04-09 */
 /**
  * Options object available for module
  * options/services definition.
@@ -89,13 +89,10 @@ angular.module("googleplus", []).provider("GooglePlus", [ function() {
         };
         e.prototype.handleAuthResult = function(a) {
             if (a && !a.error) {
-                var c = {};
                 gapi.client.load("oauth2", "v2", function() {
-                    var a = gapi.client.oauth2.userinfo.get();
-                    a.execute(function(a) {
-                        c.email = a.email;
-                        c.uid = a.id;
-                        d.resolve(c);
+                    var c = gapi.client.oauth2.userinfo.get();
+                    c.execute(function(c) {
+                        d.resolve(c, a);
                         b.$apply();
                     });
                 });

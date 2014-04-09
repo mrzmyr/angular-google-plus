@@ -74,6 +74,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'uglify:dist']);
+  grunt.registerTask('default', ['jshint', 'uglify:dist', 'uglify:src']);
   grunt.registerTask('test:dom', ['connect:server:keepalive']);
 };
