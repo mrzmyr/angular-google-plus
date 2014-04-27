@@ -46,14 +46,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    connect: {
-      server: {
-        options: {
-          port: 9001,
-          open: true
-        }
-      }
-    },
     karma: {
       unit: {
         configFile: 'karma.conf.js'
@@ -75,5 +67,4 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'uglify:dist', 'uglify:src']);
-  grunt.registerTask('test:dom', ['connect:server:keepalive']);
 };
