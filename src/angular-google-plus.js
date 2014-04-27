@@ -110,8 +110,8 @@ angular.module('googleplus', []).
 
       NgGooglePlus.prototype.handleAuthResult = function(authResult) {
           if (authResult && !authResult.error) {
-              deferred.resolve(authResult);
-              $rootScope.$apply();
+            deferred.resolve(authResult);
+            $rootScope.$apply();
           } else {
             deferred.reject('error');
           }
@@ -119,12 +119,14 @@ angular.module('googleplus', []).
 
       NgGooglePlus.prototype.getUser = function() {
           var deferred = $q.defer();
+
           gapi.client.load('oauth2', 'v2', function () {
-              gapi.client.oauth2.userinfo.get().execute(function (resp) {
-                  deferred.resolve(resp);
-                  $rootScope.$apply();
-              });
+            gapi.client.oauth2.userinfo.get().execute(function (resp) {
+              deferred.resolve(resp);
+              $rootScope.$apply();
+            });
           });
+
           return deferred.promise;
       };
 

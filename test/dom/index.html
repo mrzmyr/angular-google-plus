@@ -14,13 +14,17 @@
 
     app.controller('AuthCtrl', ['$scope', 'GooglePlus', function ($scope, GooglePlus) {
         $scope.login = function () {
-            GooglePlus.login().then(function (data) {
-                console.log(data);
+            GooglePlus.login().then(function (authResult) {
+                console.log(authResult);
+
+                GooglePlus.getUser().then(function (user) {
+                    console.log(user);
+                });
             }, function (err) {
                 console.log(err);
             });
         };
-    }])
+    }]);
     </script>
 </head>
 <body ng-app="app" ng-controller="AuthCtrl">

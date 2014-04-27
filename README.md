@@ -1,11 +1,11 @@
-Angular-Google-Plus
+angular-google-plus
 ==================
 
 [![Build Status](https://travis-ci.org/mrzmyr/angular-google-plus.png)](https://travis-ci.org/mrzmyr/angular-google-plus) 
 [![Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus.png)](https://david-dm.org/mrzmyr/angular-google-plus) 
 [![Dev Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus/dev-status.png)](https://david-dm.org/mrzmyr/angular-google-plus#info=devDependencies&view=table) 
 
-A angular module which handles the login with the Google+ API
+> A angular module which handles the login with the Google+ API
 
 #### Demo
 
@@ -34,13 +34,17 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
 
 app.controller('AuthCtrl', ['$scope', 'GooglePlus', function ($scope, GooglePlus) {
     $scope.login = function () {
-        GooglePlus.login().then(function (resp) {
-            console.log(resp);
+        GooglePlus.login().then(function (authResult) {
+            console.log(authResult);
+
+            GooglePlus.getUser().then(function (user) {
+                console.log(user);
+            });
         }, function (err) {
             console.log(err);
         });
     };
-}])
+}]);
 ```
 
 #### Credits
