@@ -3,7 +3,8 @@ describe('googlePlus Module specs', function () {
   // mock global gapi object
   window.gapi = {
     auth: {
-      authorize: jasmine.createSpy()
+      authorize: jasmine.createSpy(),
+      signOut: jasmine.createSpy()
     }
   };
 
@@ -37,6 +38,11 @@ describe('googlePlus Module specs', function () {
           scope: GooglePlusProvider.getScopes(),
           immediate: false
         }, googlePlus.handleAuthResult);
+    }));
+
+    it("a working logout", inject(function ($q) {
+      expect(googlePlus.logout());
+      expect(window.gapi.auth.signOut).toHaveBeenCalled();
     }));
 
     it('appId as default value', function () {

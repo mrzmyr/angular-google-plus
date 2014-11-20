@@ -138,6 +138,11 @@ angular.module('googleplus', []).
         return gapi.auth.setToken(token);
       };
 
+      NgGooglePlus.prototype.logout =  function () {
+        gapi.auth.signOut();
+        return deferred.promise;
+      };
+
       return new NgGooglePlus();
     }];
 }])
