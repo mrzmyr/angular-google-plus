@@ -22,7 +22,7 @@ $ bower install angular-google-plus
 
 #### Usage
 
-```
+```js
 var app = angular.module('app', ['googleplus']);
 
 app.config(['GooglePlusProvider', function(GooglePlusProvider) {
