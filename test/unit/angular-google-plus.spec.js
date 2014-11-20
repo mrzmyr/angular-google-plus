@@ -32,7 +32,7 @@ describe('googlePlus Module specs', function () {
 
       expect(googlePlus.login().then).toEqual(jasmine.any(Function));
 
-      expect(window.gapi.auth.authorize).wasCalledWith({
+      expect(window.gapi.auth.authorize).toHaveBeenCalledWith({
           client_id: GooglePlusProvider.getClientId(),
           scope: GooglePlusProvider.getScopes(),
           immediate: false
