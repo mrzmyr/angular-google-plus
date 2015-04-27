@@ -69,6 +69,22 @@ angular.module('googleplus', []).
     };
 
     /**
+     * Make sign-in server side 
+     */
+    this.setServerSide = function () {
+      options.accessType = 'offline';
+      options.responseType = 'code token id_token gsession';
+    };
+
+    /**
+     * Make sign-in client side (defult)
+     */
+    this.setClientSide = function () {
+      delete options.accessType;
+      delete options.responseType;
+    };
+
+    /**
      * This defines the Google Plus Service on run.
      */
     this.$get = ['$q', '$rootScope', '$timeout', function($q, $rootScope, $timeout) {
@@ -90,7 +106,9 @@ angular.module('googleplus', []).
         gapi.auth.authorize({
           client_id: options.clientId,
           scope: options.scopes,
-          immediate: false
+          immediate: false,
+          access_type: options.accessType,
+          response_type: options.responseType
         }, this.handleAuthResult);
         return deferred.promise;
       };
