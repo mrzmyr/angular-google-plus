@@ -70,17 +70,17 @@ angular.module('googleplus', []).
     };
 
     /**
-     * Make sign-in server side 
+     * Make sign-in server side
      */
-    this.setServerSide = function () {
+    this.enableServerSide = function () {
       options.accessType = 'offline';
       options.responseType = 'code token id_token gsession';
     };
 
     /**
-     * Make sign-in client side (defult)
+     * Make sign-in client side (default)
      */
-    this.setClientSide = function () {
+    this.disableServerSide = function () {
       delete options.accessType;
       delete options.responseType;
     };
@@ -104,13 +104,20 @@ angular.module('googleplus', []).
 
       NgGooglePlus.prototype.login =  function () {
         deferred  = $q.defer();
-        gapi.auth.authorize({
+
+        var authOptions = {
           client_id: options.clientId,
           scope: options.scopes,
-          immediate: false,
-          access_type: options.accessType,
-          response_type: options.responseType
-        }, this.handleAuthResult);
+          immediate: false
+        };
+
+        if(options.accessType && options.responseType) {
+          authOptions.access_type = options.accessType;
+          authOptions.response_type = options.responseType;
+        }
+
+        gapi.auth.authorize(authOptions, this.handleAuthResult);
+
         return deferred.promise;
       };
 
