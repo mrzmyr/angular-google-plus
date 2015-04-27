@@ -1,9 +1,3 @@
-/**
- * Options object available for module
- * options/services definition.
- * @type {Object}
- */
-var options = {};
 
 /**
  * googleplus module
@@ -14,6 +8,13 @@ angular.module('googleplus', []).
    * GooglePlus provider
    */
   provider('GooglePlus', [function() {
+
+    /**
+     * Options object available for module
+     * options/services definition.
+     * @type {Object}
+     */
+    var options = {};
 
     /**
      * clientId
