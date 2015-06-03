@@ -59,7 +59,6 @@ describe('googlePlus Module specs', function () {
     }));
 
     it("a working logout", inject(function () {
-      googlePlus.login();
       expect(googlePlus.logout());
       expect(window.gapi.auth.signOut).toHaveBeenCalled();
     }));

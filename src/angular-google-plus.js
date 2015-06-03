@@ -167,7 +167,6 @@ angular.module('googleplus', []).
 
       NgGooglePlus.prototype.logout =  function () {
         gapi.auth.signOut();
-        return deferred.promise;
       };
 
       return new NgGooglePlus();
