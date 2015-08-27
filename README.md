@@ -1,9 +1,7 @@
 angular-google-plus
 ==================
 
-[![Build Status](https://travis-ci.org/mrzmyr/angular-google-plus.png)](https://travis-ci.org/mrzmyr/angular-google-plus) 
-[![Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus.png)](https://david-dm.org/mrzmyr/angular-google-plus) 
-[![Dev Dependency Status](https://david-dm.org/mrzmyr/angular-google-plus/dev-status.png)](https://david-dm.org/mrzmyr/angular-google-plus#info=devDependencies&view=table) 
+[![Build Status](http://img.shields.io/travis/mrzmyr/angular-google-plus.svg?style=flat)](https://travis-ci.org/mrzmyr/angular-google-plus) [![npm version](https://badge.fury.io/js/angular-google-plus.svg)](http://badge.fury.io/js/angular-google-plus) [![Bower version](https://badge.fury.io/bo/angular-google-plus.svg)](http://badge.fury.io/bo/angular-google-plus)
 
 > A angular module which handles the login with the Google+ API
 
@@ -11,13 +9,16 @@ angular-google-plus
 
 Try [this demo](http://plnkr.co/edit/jvHVtNedJoPcqRKg8OLz?p=preview). _Remind that there is no `API Key` and `Client ID` inserted_
 
-
 #### Install
 
-Install the angular module with bower.
+Install the angular module with bower or npm.
 
 ```
 $ bower install angular-google-plus
+```
+
+```
+$ npm install angular-google-plus
 ```
 
 #### Usage
