@@ -1,3 +1,8 @@
+## 0.1.3
+
+- Enable use of server side sign-in (573dcec, 710aba5)
+- API: Add logout method (2a2d10c)
+
 ## 0.1.2
 
 - Bower: remove minifed version from main value
