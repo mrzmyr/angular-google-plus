@@ -2,7 +2,7 @@
   "name": "angular-google-plus",
   "version": "0.1.3",
   "description": "A angular module which handles the login with the Google+ API",
-  "main": "Gruntfile.js",
+  "main": "dist/angular-google-plus.js",
   "scripts": {
     "test": "grunt karma:ci"
   },
